@@ -1,3 +1,16 @@
-See [`Dockerfile`](https://github.com/tianon/dockerfiles/blob/master/syncthing/Dockerfile) and [example `run.sh` script](https://github.com/tianon/dockerfiles/blob/master/syncthing/run.sh) for usage.
+gibby/syncthing
+===================
 
-If you're interested in inotify support, see [`tianon/syncthing-inotify`](https://registry.hub.docker.com/u/tianon/syncthing-inotify/).
+[Syncthing](http://syncthing.net/) Docker image
+
+### How to run
+
+    docker run -d \
+        --name syncthing \
+        --restart always \
+        -p 8384:8384 -p 22000:22000 -p 21025:21025/udp \
+        -v /opt/docker/syncthing/config:/home/syncthing/.config/syncthing \
+        -v /opt/docker/syncthing/Sync:/home/syncthing/Sync \
+        gibby/syncthing
+
+Then access Syncthing Web UI at [http://localhost:8384/]()

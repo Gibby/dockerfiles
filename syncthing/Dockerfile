@@ -1,25 +1,34 @@
-FROM debian:jessie
+FROM golang:1.4.2
+MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
+MAINTAINER Chris Gibson <git@twoitguys.com>
 
-RUN useradd --create-home user
+ENV VERSION v0.12.16
 
-RUN apt-get update && apt-get install -y ca-certificates --no-install-recommends && rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND noninteractive
 
-# gpg: key 00654A3E: public key "Syncthing Release Management <release@syncthing.net>" imported
-RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 37C84554E7E0A261E4F76E1ED26E6ED000654A3E
+RUN apt-get update && \
+    apt-get install -y git xmlstarlet && \
+    rm -rf /var/lib/apt/lists/*
 
-ENV SYNCTHING_VERSION 0.11.26
+RUN useradd -m syncthing
 
-RUN set -x \
-	&& apt-get update && apt-get install -y curl --no-install-recommends && rm -rf /var/lib/apt/lists/* \
-	&& tarball="syncthing-linux-amd64-v${SYNCTHING_VERSION}.tar.gz" \
-	&& curl -fSL "https://github.com/syncthing/syncthing/releases/download/v${SYNCTHING_VERSION}/"{"$tarball",sha1sum.txt.asc} -O \
-	&& apt-get purge -y --auto-remove curl \
-	&& gpg --verify sha1sum.txt.asc \
-	&& grep -E " ${tarball}\$" sha1sum.txt.asc | sha1sum -c - \
-	&& rm sha1sum.txt.asc \
-	&& tar -xvf "$tarball" --strip-components=1 "$(basename "$tarball" .tar.gz)"/syncthing \
-	&& mv syncthing /usr/local/bin/syncthing \
-	&& rm "$tarball"
+RUN mkdir -p /go/src/github.com/syncthing && \
+    cd /go/src/github.com/syncthing && \
+    git clone https://github.com/syncthing/syncthing.git && \
+    cd syncthing && \
+    git checkout $VERSION && \
+    go run build.go && \
+    mv bin/syncthing /home/syncthing/syncthing && \
+    chown syncthing:syncthing /home/syncthing/syncthing && \
+    rm -rf /go/src/github.com/syncthing
 
-USER user
-CMD ["syncthing"]
+ADD start.sh /start.sh
+RUN chmod +x /start.sh
+
+WORKDIR /home/syncthing
+
+VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
+
+EXPOSE 8384 22000 21025/udp
+
+CMD ["/start.sh"]
