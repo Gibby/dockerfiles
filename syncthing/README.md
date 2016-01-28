@@ -3,6 +3,8 @@ gibby/syncthing
 
 [Syncthing](http://syncthing.net/) Docker image
 
+Forked from https://github.com/istepanov/docker-syncthing
+
 ### How to run
 
     docker run -d \
