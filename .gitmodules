@@ -1,3 +1,0 @@
-[submodule "syncthing"]
-	path = syncthing
-	url = git@github.com:Gibby/docker-syncthing.git
