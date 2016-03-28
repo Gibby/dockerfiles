@@ -1,4 +1,4 @@
-FROM gibby/base:latest
+FROM gibby/base:debian8
 MAINTAINER Chris Gibson <git@twoitguys.com>
 
 COPY run.sh /run.sh
