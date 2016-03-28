@@ -2,7 +2,6 @@
 FROM centos:6
 MAINTAINER Chris Gibson <git@twoitguys.com>
 
-RUN yum -y install curl git vim && \
-    yum clean all
-
+RUN yum -y update; yum clean all
+RUN yum -y install curl git vim; yum clean all
 
