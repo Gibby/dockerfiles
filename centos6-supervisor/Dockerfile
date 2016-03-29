@@ -14,4 +14,4 @@ ADD container-files /
 
 VOLUME ["/data"]
 
-ENTRYPOINT ["/config/bootstrap.sh"]
+CMD ["/config/bootstrap.sh"]
