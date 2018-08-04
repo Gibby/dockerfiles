@@ -10,4 +10,4 @@ echo "Starting SSH"
 echo "UseDNS no" >> /etc/ssh/sshd_config
 /usr/sbin/sshd
 echo "Starting openconect"
-echo "${PASSWORD}" | /usr/sbin/openconnect ${OPTIONS} ${SERVER} 
+echo -n "${PASSWORD}" | /usr/sbin/openconnect ${OPTIONS} ${SERVER}
