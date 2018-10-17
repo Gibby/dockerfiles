@@ -10,4 +10,4 @@ echo "Starting SSH"
 echo "UseDNS no" >> /etc/ssh/sshd_config
 /usr/sbin/sshd
 echo "Starting openconect"
-echo "${PASSWORD}" | /usr/sbin/openconnect ${OPTIONS} ${SERVER} 
+echo "${PASSWORD}" | /usr/sbin/openconnect -v --script-tun --script "/usr/bin/ocproxy -v -k 30 -g -D 9000"  ${OPTIONS} ${SERVER} 
