@@ -1,6 +1,7 @@
 # What is this?
 A container that runs ssh and openconnect.
 I use it for ssh'ing to servers through the vpn from the localhost(my laptop) running the container.
+It also runs a SOCKS 5 server on port 5.. Finally yaaaaaa
 
 NOTE: Privileged mode is needed for the TUN adapter in the container.
 
@@ -16,6 +17,9 @@ SERVER - Server to connect to with openconnect.
 ## Docker run options needed
 You should provide a port from localhost to the container to connect to ssh with.
 -p 127.0.0.1:2222:22
+
+And a port for the socks 5 proxy
+-p 127.0.0.1:9000:9000
 
 ## Example
 docker run --privileged \
@@ -41,4 +45,4 @@ ProxyCommand ssh -p 2200 root@localhost nc %h %p
 
 
 ## TODO
-Add a socks proxy inside the container and drop using ssh.
+Add instructions for using redsocks on linux with iptables to route networks through iptables to redsocks to the socks 5 proxy on the container
