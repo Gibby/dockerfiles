@@ -9,5 +9,6 @@ chmod 0600 /root/.ssh/authorized_keys
 echo "Starting SSH"
 echo "UseDNS no" >> /etc/ssh/sshd_config
 /usr/sbin/sshd
-echo "Starting openconect"
-echo -n "${PASSWORD}" | /usr/sbin/openconnect ${OPTIONS} ${SERVER}
+echo "Skipping openconnect"
+#echo "Starting openconect"
+#echo -n "${PASSWORD}" | /usr/sbin/openconnect ${OPTIONS} ${SERVER}

@@ -1,9 +1,9 @@
-FROM gibby/base:debian8
-MAINTAINER Chris Gibson <git@twoitguys.com>
+FROM debian:stretch
+MAINTAINER Drew Wells <drew.wells00@gmail.com>
 
 RUN mkdir -p /var/run/sshd
 RUN apt-get update && \
-    apt-get install -y openconnect openssh-server netcat-traditional ocproxy dnsutils telnet python3.4 && \
+    apt-get install -y openconnect openssh-server netcat-traditional ocproxy dnsutils telnet python && \
     apt-get clean && \
     rm -rf /var/cache/apt/* && \
     rm -rf /var/lib/apt/lists/*

@@ -1,3 +1,3 @@
 
 build:
-	docker build -t drewwells/openconnect .
+	docker build -t drewwells/openconnect:ota .
