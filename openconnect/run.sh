@@ -9,6 +9,29 @@ chmod 0600 /root/.ssh/authorized_keys
 echo "Starting SSH"
 echo "UseDNS no" >> /etc/ssh/sshd_config
 /usr/sbin/sshd
-echo "Skipping openconnect"
+
+FILE="/keys/duo"
+if [! -a "$FILE" ]; then
+    echo "Key file is missing"
+    sleep 600
+    exit 1
+fi
+
+LOC=$(wc -l "$FILE")
+
+if [ $LOC < 50 ]; then
+    echo "File is too small to pull from"
+    sleep 600
+    exit 1
+fi
+
+CODE=$(head -n1 "$FILE")
+# Remove first line of a file
+#tail -n +2 "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
+
+echo "Starting openconnect!"
 #echo "Starting openconect"
-#echo -n "${PASSWORD}" | /usr/sbin/openconnect ${OPTIONS} ${SERVER}
+(echo "${PASSWORD}"; echo "push") | /usr/sbin/openconnect --passwd-on-stdin ${OPTIONS} ${SERVER}
+echo "Openconnect stopped echo $@"
+sleep 30
+echo "Done sleeping"
