@@ -33,5 +33,6 @@ echo "Starting openconnect!"
 #echo "Starting openconect"
 (echo "${PASSWORD}"; echo "push") | /usr/sbin/openconnect --passwd-on-stdin ${OPTIONS} ${SERVER}
 echo "Openconnect stopped echo $@"
-sleep 30
+sleep 60
 echo "Done sleeping"
+exit 255
