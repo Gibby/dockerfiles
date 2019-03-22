@@ -1,9 +1,8 @@
 # What is this?
-A container that runs ssh and openconnect.
-I use it for ssh'ing to servers through the vpn from the localhost(my laptop) running the container.
-It also runs a SOCKS 5 server on port 9000.. Finally yaaaaaa
-
+A container that runs unbound and openconnect(with a SOCKS5 proxy).
 NOTE: Privileged mode is needed for the TUN adapter in the container.
+
+After unbound starts up, it overwrites /etc/resolv.conf in the container to use 127.0.0.1
 
 ## Environment variables needed
 PASSWORD - The password passed to openconnect.
@@ -49,12 +48,14 @@ docker run --privileged \
 
 -t gibby/openconnect
 
-
+## To also expose Unbound (DNS) add
+-p 127.0.0.1:53:53/tcp \
+-p 127.0.0.1:53:53/udp \
 
 ## SSH Config on localhost
 Put something like below in your .ssh/config with ProxyCommand for the hosts behind the vpn
 
-ProxyCommand ssh -p 10022 root@localhost nc %h %p
+ProxyCommand ssh -p 9000 root@localhost nc %h %p
 
 
 
