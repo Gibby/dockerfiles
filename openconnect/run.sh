@@ -31,7 +31,7 @@ CODE=$(head -n1 "$FILE")
 
 echo "Starting openconnect!"
 #echo "Starting openconect"
-(echo "${PASSWORD}"; echo "push") | /usr/sbin/openconnect --passwd-on-stdin ${OPTIONS} ${SERVER}
+(echo "${PASSWORD}"; echo "push") | /usr/sbin/openconnect --verbose --disable-ipv6 --passwd-on-stdin ${OPTIONS} ${SERVER}
 echo "Openconnect stopped echo $@"
 sleep 60
 echo "Done sleeping"
