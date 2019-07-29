@@ -5,7 +5,7 @@ NOTE: Privileged mode is needed for the TUN adapter in the container.
 After unbound starts up(if UNBOUND is set to true), it overwrites /etc/resolv.conf in the container to use 127.0.0.1
 
 ## Environment variables needed
-UNBOUND - TRUE (To run unbound in container also)
+UNBOUND - true (To run unbound in container also)
 PASSWORD - The password passed to openconnect.
 
 OPTIONS - Options passed to openconnect. Example -e OPTIONS="-u awesome_admin --authgroup=ADMINS --no-cert-check"
